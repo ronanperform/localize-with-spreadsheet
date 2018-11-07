@@ -11,10 +11,12 @@ var iOSTransformer = {
         return "// " + comment;
     },
     transformKeyValue: function (key, value) {
-        var normalizedValue = value.replace(/%newline%/gi, "\\n");
+        var normalizedValue = value.replace(/%newline%/gi, "");
         normalizedValue = normalizedValue.replace(/"/gi, '\\"');
         normalizedValue = normalizedValue.replace(/%([@df])/gi, '%$1');
         normalizedValue = normalizedValue.replace(/%s/gi, "%@");
+        normalizedValue = normalizedValue.replace(/^\s+/g, "");
+        normalizedValue = normalizedValue.replace(/\s+$/g, "");
 
         return '"' + key + '" = "' + normalizedValue + '";';
     },
